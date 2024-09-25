@@ -8,6 +8,6 @@
     "build": "bash build.sh"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "flapkrit",
+  "license": "MIT"
 }
