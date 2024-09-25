@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "bash build.sh"
+    "build": "bash build.sh",
+    "install": "source .env.build && cp build/${CLI_NAME} ~/.local/bin/${CLI_NAME}"
   },
   "keywords": [],
   "author": "flapkrit",
