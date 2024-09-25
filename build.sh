@@ -1,8 +1,9 @@
 # echo '{ "main": "hello.js", "output": "sea-prep.blob" }' > sea-config.json
+source .env.build
 
 BUILD_DIR='build'
-CLI_NAME='mycli'
 CLI_PATH=${BUILD_DIR}/${CLI_NAME}
+echo "Building to ${CLI_PATH}"
 
 node --experimental-sea-config sea-config.json
 cp $(command -v node) $CLI_PATH
