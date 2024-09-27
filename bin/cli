@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+parseArgs = require("node:util").parseArgs;
+
+// Parse Argument
+const argsConfig = {
+  options: {
+    preset: {
+      type: "string",
+      short: "p",
+    },
+  },
+  allowPositionals: false,
+};
+
+const { values, positionals } = parseArgs(argsConfig);
+console.log("Parsed argument:", values, positionals);
+
+// validate arguments
+
+commands = require("yb-js").commands;
+commands.setPreset({
+  values,
+  positionals,
+});

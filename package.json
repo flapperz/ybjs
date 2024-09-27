@@ -1,16 +1,26 @@
 {
-  "name": "ybjs",
+  "name": "yb-js",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "index.js",
   "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node main.js",
-    "build": "bash build.sh",
-    "install": "source .env.build && cp build/${CLI_NAME} ~/.local/bin/${CLI_NAME}"
+    "deploy": "npm install -g ."
+  },
+  "bin": {
+    "ybjs": "ybjs"
+  },
+  "exports" : {
+    ".": [
+      {
+        "default": "./index.js"
+
+      },
+      "./index.js"
+    ]
   },
   "keywords": [],
-  "author": "flapkrit",
+  "author": "",
   "license": "MIT"
 }
