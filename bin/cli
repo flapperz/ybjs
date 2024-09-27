@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// Helper
+
 const loadJson = (fileName) => {
   // load json file
   const fs = require("node:fs");
@@ -23,6 +25,9 @@ const loadJson = (fileName) => {
   return presetConfig;
 };
 
+// Handler
+commands = require("yb-js").commands;
+
 // TODO: find file in preset store folder
 const setCommandHandler = ({ preset: presetFileName }) => {
   console.log(`preset file: ${presetFileName}`);
@@ -34,8 +39,11 @@ const setCommandHandler = ({ preset: presetFileName }) => {
     return;
   }
 
-  commands = require("yb-js").commands;
   commands.setPreset(presetConfig);
+};
+
+const getCommandHandler = () => {
+  commands.getYbjsPath();
 };
 
 // parse argument
@@ -51,6 +59,11 @@ const argv = yargs(hideBin(process.argv))
       });
     },
     handler: setCommandHandler,
+  })
+  .command({
+    command: "path",
+    desc: "get ybjs presets store path",
+    handler: getCommandHandler,
   })
   .strict()
   .help("h")
