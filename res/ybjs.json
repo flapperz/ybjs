@@ -1,0 +1,23 @@
+[
+    {
+        "display_index": 1,
+        "spaces": [
+            {
+                "space_index": 1,
+                "window_apps": [
+                    "Brave Browser"
+                ]
+            },
+            {
+                "space_index": 2,
+                "window_apps": [
+                    "Code"
+                ]
+            }, {
+                "space_index": 3,
+                "is_dump": true
+            }
+            
+        ]
+    }
+]
