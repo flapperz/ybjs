@@ -4,19 +4,38 @@ const loadJson = (fileName) => {
   // load json file
   const fs = require("node:fs");
 
-  const config = JSON.parse(fs.readFileSync(fileName, "utf8"));
-  console.log("Config:", config);
-  return config;
+  let fileString;
+  try {
+    fileString = fs.readFileSync(fileName, "utf-8");
+  } catch (err) {
+    console.error(`Cannot load preset file: ${fileName}`);
+    return;
+  }
+
+  let presetConfig;
+  try {
+    presetConfig = JSON.parse(fileString);
+  } catch (err) {
+    console.error(`Cannot parse JSON: ${fileName}`);
+    return;
+  }
+  console.log("Config:", presetConfig);
+  return presetConfig;
 };
 
 // TODO: find file in preset store folder
-const setCommandHandler = ({ preset }) => {
-  console.log(`preset file: ${preset}`);
+const setCommandHandler = ({ preset: presetFileName }) => {
+  console.log(`preset file: ${presetFileName}`);
 
-  const config = loadJson(preset);
+  const presetConfig = loadJson(presetFileName);
+
+  if (presetConfig == null) {
+    console.error("fail to execute `set` command");
+    return;
+  }
 
   commands = require("yb-js").commands;
-  commands.setPreset(config);
+  commands.setPreset(presetConfig);
 };
 
 // parse argument
