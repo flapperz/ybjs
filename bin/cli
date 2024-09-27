@@ -1,25 +1,38 @@
 #!/usr/bin/env node
 
-parseArgs = require("node:util").parseArgs;
+const loadJson = (fileName) => {
+  // load json file
+  const fs = require("node:fs");
 
-// Parse Argument
-const argsConfig = {
-  options: {
-    preset: {
-      type: "string",
-      short: "p",
-    },
-  },
-  allowPositionals: false,
+  const config = JSON.parse(fs.readFileSync(fileName, "utf8"));
+  console.log("Config:", config);
+  return config;
 };
 
-const { values, positionals } = parseArgs(argsConfig);
-console.log("Parsed argument:", values, positionals);
+// TODO: find file in preset store folder
+const setCommandHandler = ({ preset }) => {
+  console.log(`preset file: ${preset}`);
 
-// validate arguments
+  const config = loadJson(preset);
 
-commands = require("yb-js").commands;
-commands.setPreset({
-  values,
-  positionals,
-});
+  commands = require("yb-js").commands;
+  commands.setPreset(config);
+};
+
+// parse argument
+const yargs = require("yargs/yargs");
+const { hideBin } = require("yargs/helpers");
+const argv = yargs(hideBin(process.argv))
+  .command({
+    command: "set <preset>",
+    desc: "set yabai workspace preset",
+    builder: (yargs) => {
+      yargs.positional("preset", {
+        describe: "preset_file",
+      });
+    },
+    handler: setCommandHandler,
+  })
+  .strict()
+  .help("h")
+  .parse();
